@@ -98,7 +98,7 @@ class spacefreight():
             # print(ship_list)
             total_costs = 0
             for spacecraft in self.ships:
-                print(spacecraft.name)
+                print(spacecraft)
                 total_payload_weight = ship_standard_payload - spacecraft.payload_mass
                 payload_fuel_mass = (spacecraft.mass + total_payload_weight)\
                                     * spacecraft.fuel_to_weight
