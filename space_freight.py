@@ -56,9 +56,6 @@ class spacefreight():
                     list_ships.append(ship_data)
         return list_ships
 
-    def take(self, item):
-        self.current_ship.inventory.add(item)
-
     def calculate_greedy(self, ship, item):
         for ship_standard in self.ships:
             ship_standard_payload = ship_standard.payload_mass
@@ -87,7 +84,7 @@ class spacefreight():
                     item+=1
                     count_cargo+=1
                     aantal+=1
-                    space_freight.take(self.current_cargo)
+                    cur.take(self.current_cargo)
                     ship_list.append(self.current_cargo.parcel_id)
             count_cargo = 0
             ship+=1
