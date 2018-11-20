@@ -117,9 +117,11 @@ class spacefreight():
                 costs_per_ship = spacecraft.base_costs + ship_costs
                 total_costs += costs_per_ship
                 print(locale.currency(costs_per_ship, grouping = True))
+                print()
             print('The total costs for the operation is: ', locale.currency(total_costs, grouping = True))
             cost_per_parcel = total_costs / len(ship_list)
             print('The costs per parcel is: ', locale.currency(cost_per_parcel, grouping = True))
+            print()
             print()
 
         # while i < len(self.cargo): # gaat over alle schepen
@@ -153,7 +155,7 @@ if __name__ == "__main__":
     item = 0
     while ship < 4:
         while item < 100:
-            space_freight = spacefreight('List1')
+            space_freight = spacefreight('ListTest')
             space_freight.calculate(ship, item)
             item+=1
         item=0
