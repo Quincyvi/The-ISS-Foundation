@@ -61,13 +61,8 @@ class spacefreight():
     def take(self, item):
         self.current_ship.inventory.add(item)
 
-    def calculate(self):
+    def calculate(self, ship, item):
         ship_list = []
-        ship = 0
-        for ship in range(4):
-            ship = random.randint(0,4)
-        for item in range(100):
-            item = random.randint(0,100)
         count_cargo = 0
         count_ships = 0
         list_amount = []
@@ -100,7 +95,7 @@ class spacefreight():
             # print(cur)
         if len(ship_list) >= 96:
             start_ships = ship - count_ships
-            start_cargo = item % 100
+            start_cargo = item % 97
             print('the start number for cargo list = ', start_cargo)
             print('the start number for ship list = ', start_ships)
             print('the max value is: ', len(ship_list))
@@ -134,10 +129,14 @@ class spacefreight():
         #         y+=1 # volgende item voor dit schip
         # print("Total amount of parcels:", x) # hoe vaak de loop in
 if __name__ == "__main__":
-    d = 0
-    while d <= 10000:
-        space_freight = spacefreight('List1')
-        space_freight.calculate()
-        d+=1
+    ship = 0
+    item = 0
+    while ship < 4:
+        while item < 100:
+            space_freight = spacefreight('List1')
+            space_freight.calculate(ship, item)
+            item+=1
+        item=0
+        ship+=1
 
 ## clear & herhaal calculate, observaties ergens saven, enkel de beste uitkomst.
