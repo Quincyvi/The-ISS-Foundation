@@ -1,4 +1,5 @@
 import random
+import numpy as np
 import csv
 import locale
 from space_craft import Spacecraft
@@ -46,9 +47,7 @@ class spacefreight():
                     ship_mass = int(line[4])
                     ship_base_costs = line[5]
                     costs = ship_base_costs.split('M')
-                    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-                    ship_base_costs = locale.currency(int(costs[0]) * 1000000,
-                                                      grouping=True)
+                    ship_base_costs = int(costs[0]) * 1000000
                     ship_fuel = float(line[6])
                     ship_data = Spacecraft(ship_name, ship_location,
                                            ship_pay_mass, ship_pay_vol,
@@ -62,6 +61,8 @@ class spacefreight():
         self.current_ship.inventory.add(item)
 
     def calculate(self, ship, item):
+        for ship_standard in self.ships:
+            ship_standard_payload = ship_standard.payload_mass
         ship_list = []
         count_cargo = 0
         count_ships = 0
@@ -92,7 +93,6 @@ class spacefreight():
             count_cargo = 0
             ship+=1
             count_ships+=1
-            # print(cur)
         if len(ship_list) >= 96:
             start_ships = ship - count_ships
             start_cargo = item % 97
@@ -100,6 +100,26 @@ class spacefreight():
             print('the start number for ship list = ', start_ships)
             print('the max value is: ', len(ship_list))
             # print(ship_list)
+            total_costs = 0
+            for spacecraft in self.ships:
+                print(spacecraft.name)
+                total_payload_weight = ship_standard_payload - spacecraft.payload_mass
+                payload_fuel_mass = (spacecraft.mass + total_payload_weight)\
+                                    * spacecraft.fuel_to_weight
+                ship_fuel_mass = (spacecraft.mass + total_payload_weight\
+                                 + payload_fuel_mass) * spacecraft.fuel_to_weight
+                total_ship_fuel_mass = (spacecraft.mass + total_payload_weight)\
+                                       * (spacecraft.fuel_to_weight / \
+                                       (1 - spacecraft.fuel_to_weight))
+                ship_costs = np.ceil(total_ship_fuel_mass * 1000)
+                print('The total fuel mass is: {} kg'.format(total_ship_fuel_mass))
+                locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+                costs_per_ship = spacecraft.base_costs + ship_costs
+                total_costs += costs_per_ship
+                print(locale.currency(costs_per_ship, grouping = True))
+            print('The total costs for the operation is: ', locale.currency(total_costs, grouping = True))
+            cost_per_parcel = total_costs / len(ship_list)
+            print('The costs per parcel is: ', locale.currency(cost_per_parcel, grouping = True))
             print()
 
         # while i < len(self.cargo): # gaat over alle schepen
