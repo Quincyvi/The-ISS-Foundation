@@ -59,7 +59,7 @@ class spacefreight():
     def take(self, item):
         self.current_ship.inventory.add(item)
 
-    def calculate(self, ship, item):
+    def calculate_greedy(self, ship, item):
         for ship_standard in self.ships:
             ship_standard_payload = ship_standard.payload_mass
         ship_list = []
@@ -129,7 +129,7 @@ if __name__ == "__main__":
     while ship < 4:
         while item < 100:
             space_freight = spacefreight('ListTest')
-            space_freight.calculate(ship, item)
+            space_freight.calculate_greedy(ship, item)
             item+=1
         item=0
         ship+=1
