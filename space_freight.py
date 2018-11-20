@@ -54,7 +54,6 @@ class spacefreight():
                                            ship_mass, ship_base_costs,
                                            ship_fuel)
                     list_ships.append(ship_data)
-                    # print(ship_data)
         return list_ships
 
     def take(self, item):
@@ -124,32 +123,6 @@ class spacefreight():
             print()
             print()
 
-        # while i < len(self.cargo): # gaat over alle schepen
-        #     self.current_cargo = self.cargo[i]
-        #     parcel = self.current_cargo
-        #     print(parcel/6)
-        #     y = 0
-        #     while x < len(self.ships):
-        #         self.current_ships = self.ships[x]
-        #         cur = self.current_ship
-        #         # Upperbound
-        #         if cur.payload_mass < self.current_cargo.mass or\
-        #            cur.payload_volume < self.current_cargo.volume:
-        #             i+=1 # volgende parcel
-        #             if cur.payload_mass < self.current_cargo.mass or\
-        #                cur.payload_volume < self.current_cargo.volume:
-        #                 print(cur) # print huidige data: wat is er over aan mass & volume
-        #                 print(cur.name + " will transport " + str(y) + " parcels")
-        #                 print() ##
-        #                 break
-        #         else: # als het wel ingeladen kan worden:
-        #             cur.payload_mass -= self.current_cargo.mass
-        #             cur.payload_volume -= self.current_cargo.volume
-        #         space_freight.take(self.current_cargo)
-        #         print(cur.inventory)
-        #         x+=1 # volgende item
-        #         y+=1 # volgende item voor dit schip
-        # print("Total amount of parcels:", x) # hoe vaak de loop in
 if __name__ == "__main__":
     ship = 0
     item = 0
