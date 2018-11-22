@@ -125,7 +125,6 @@ class spacefreight():
                 self.current_cargo = self.cargo[type]
                 if not self.current_cargo.parcel_id in ship_list:
                     print(self.current_cargo.parcel_id)
-                    type+=1
                 type+=1
 if __name__ == "__main__":
     ship = 0
