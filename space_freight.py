@@ -119,7 +119,14 @@ class spacefreight():
             print('The costs per parcel is: ', locale.currency(cost_per_parcel, grouping = True))
             print()
             print()
-
+            type = 0
+            print(len(ship_list))
+            while type <= 96:
+                self.current_cargo = self.cargo[type]
+                if not self.current_cargo.parcel_id in ship_list:
+                    print(self.current_cargo.parcel_id)
+                    type+=1
+                type+=1
 if __name__ == "__main__":
     ship = 0
     item = 0
