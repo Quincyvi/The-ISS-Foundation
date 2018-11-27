@@ -15,10 +15,7 @@ class Spacecraft(object):
         self.mass_per_volume = payload_mass / payload_volume
         self.inventory = Inventory()
         self.mass_taken = []
-        self.total_ship_fuel_mass = (self.mass + sum(self.mass_taken))\
-                                    * (self.fuel_to_weight / \
-                                    (1 - self.fuel_to_weight))
-        self.ship_costs = np.ceil(self.total_ship_fuel_mass * 1000)
+        # self.ship_costs = np.ceil(self.total_ship_fuel_mass * 1000)
     def __str__(self):
         return str(self.name) + ' ' + str(self.payload_mass) + ' ' + \
         str(self.payload_volume) + ' ' + str(self.mass) + ' ' +\
@@ -28,6 +25,7 @@ class Spacecraft(object):
         self.payload_mass = self.payload_mass - item.mass
         self.mass_taken.append(item.mass)
         self.payload_volume = self.payload_volume - item.volume
-    def total(self):
-        self.total_costs = self.base_costs + self.ship_costs
-        return self.total_costs
+    def total_costs(self):
+        self.total_fuel = (self.mass+sum(self.mass_taken))*(self.fuel_to_weight/(1-self.fuel_to_weight))
+        self.total_costs = np.ceil(self.total_fuel * 1000) + self.base_costs
+        return float(self.total_costs)
