@@ -57,8 +57,6 @@ class spacefreight():
         return list_ships
 
     def calculate_greedy(self, ship, item):
-        for ship_standard in self.ships:
-            ship_standard_payload = ship_standard.payload_mass
         ship_list = []
         count_cargo = 0
         count_ships = 0
@@ -87,7 +85,7 @@ class spacefreight():
             count_cargo = 0
             ship+=1
             count_ships+=1
-        if len(ship_list) >= 0:
+        if len(ship_list) >= 96:
             locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
             start_ships = ship - count_ships
             start_cargo = item % 97
@@ -144,8 +142,6 @@ class spacefreight():
             #     type+=1
 
     def calculate_hill_climben(self, ship, item):
-        for ship_standard in self.ships:
-            ship_standard_payload = ship_standard.payload_mass
         ship_list = []
         count_cargo = 0
         count_ships = 0
@@ -207,7 +203,7 @@ if __name__ == "__main__":
     while ship < 4:
         while item < 100:
             space_freight = spacefreight('ListTest')
-            space_freight.calculate_hill_climben(ship, item)
+            space_freight.calculate_greedy(ship, item)
             item+=1
         item=0
         ship+=1
