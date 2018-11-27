@@ -87,7 +87,7 @@ class spacefreight():
             count_cargo = 0
             ship+=1
             count_ships+=1
-        if len(ship_list) >= 96:
+        if len(ship_list) >= 0:
             locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
             start_ships = ship - count_ships
             start_cargo = item % 97
