@@ -28,6 +28,7 @@ class Spacecraft(object):
         self.payload_volume = self.payload_volume - item.volume
 
     def total_costs(self):
-        self.total_fuel = (self.mass+sum(self.mass_taken))*(self.fuel_to_weight/(1-self.fuel_to_weight))
-        self.total_costs = np.ceil(self.total_fuel * 1000) + self.base_costs
-        return self.total_costs
+        total_fuel = (self.mass+sum(self.mass_taken))*(self.fuel_to_weight/(1-self.fuel_to_weight))
+        #self.total_costs = np.ceil(self.total_fuel * 1000) + self.base_costs
+        total_costs = np.ceil(total_fuel * 1000) + self.base_costs
+        return total_costs

@@ -64,7 +64,6 @@ class spacefreight():
         while count_ships < len(self.ships): # gaat over alle schepen
             self.current_ship = self.ships[ship%4]
             cur = self.current_ship
-            # print(cur)
             y = 0
             aantal = 0
             while count_cargo < len(self.cargo):
@@ -92,7 +91,6 @@ class spacefreight():
             print('the start number for cargo list = ', start_cargo)
             print('the start number for ship list = ', start_ships)
             print('the max value is: ', len(ship_list))
-            # print(ship_list)
             total_costs = []
             for spacecraft in self.ships:
                 print(spacecraft)
@@ -141,6 +139,21 @@ class spacefreight():
             #         print(self.current_cargo.parcel_id)
             #     type+=1
 
+    def swap(self,ship1,ship2,nrp1,nrp2):
+        p1=ship1.get_random_parcel()
+        p2=ship2.get_random_parcel()
+        ship1.remove(p1)
+        ship2.remove(p2)
+        if ship1.fit(p2) and ship2.fit(p1):
+            ship1.add(p2)
+            ship2.add(p1)
+            if score<oud_score:
+                ship1.remove(p2)
+                ship2.remove(p1)
+                ship1.add(p1)
+                ship2.add(p2)
+
+
     def calculate_hill_climben(self, ship, item):
         ship_list = []
         count_cargo = 0
@@ -184,12 +197,14 @@ class spacefreight():
             print('the start number for cargo list = ', start_cargo)
             print('the start number for ship list = ', start_ships)
             print('the max value is: ', len(ship_list))
-            # print(ship_list)
-            total_costs = []
+            total_costs = 0
             for spacecraft in self.ships:
                 print(spacecraft)
                 print('The total costs for this ship is: ', \
                      locale.currency(spacecraft.total_costs(), grouping = True))
+                total_costs+= spacecraft.total_costs()
+            print('The total costs for this ship is: ', \
+                 locale.currency(total_costs, grouping = True))
             type = 0
             while type <= 96:
                 self.current_cargo = self.cargo[type]
