@@ -27,6 +27,10 @@ class Spacecraft(object):
         self.mass_taken.append(item.mass)
         self.payload_volume = self.payload_volume - item.volume
 
+    def fit(self, item):
+        if item.mass < self.payload_mass and item.volume < self.payload_volume:
+            return True
+
     def total_costs(self):
         total_fuel = (self.mass+sum(self.mass_taken))*(self.fuel_to_weight/(1-self.fuel_to_weight))
         #self.total_costs = np.ceil(self.total_fuel * 1000) + self.base_costs
