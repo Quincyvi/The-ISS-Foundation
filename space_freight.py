@@ -102,43 +102,7 @@ class spacefreight():
                 if not self.current_cargo.parcel_id in ship_list:
                     print(self.current_cargo.parcel_id)
                 type+=1
-            # start_ships = ship - count_ships
-            # start_cargo = item % 97
-            # print('the start number for cargo list = ', start_cargo)
-            # print('the start number for ship list = ', start_ships)
-            # print('the max value is: ', len(ship_list))
-            # # print(ship_list)
-            # total_costs = 0
-            # for spacecraft in self.ships:
-            #     print(spacecraft)
-            #     total_payload_weight = ship_standard_payload - spacecraft.payload_mass
-            #     payload_fuel_mass = (spacecraft.mass + total_payload_weight)\
-            #                         * spacecraft.fuel_to_weight
-            #     ship_fuel_mass = (spacecraft.mass + total_payload_weight\
-            #                      + payload_fuel_mass) * spacecraft.fuel_to_weight
-            #     total_ship_fuel_mass = (spacecraft.mass + total_payload_weight)\
-            #                            * (spacecraft.fuel_to_weight / \
-            #                            (1 - spacecraft.fuel_to_weight))
-            #     ship_costs = np.ceil(total_ship_fuel_mass * 1000)
-            #     print('The total fuel mass is: {} kg'.format(total_ship_fuel_mass))
-            #     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-            #     costs_per_ship = spacecraft.base_costs + ship_costs
-            #     total_costs += costs_per_ship
-            #     print(locale.currency(costs_per_ship, grouping = True))
-            #     print()
-            # print('The total costs for the operation is: ', locale.currency(total_costs, grouping = True))
-            # cost_per_parcel = total_costs / len(ship_list)
-            # print('The costs per parcel is: ', locale.currency(cost_per_parcel, grouping = True))
-            # print()
-            # print()
-            # type = 0
-            # print(len(ship_list))
-            # while type <= 96:
-            #     self.current_cargo = self.cargo[type]
-            #     if not self.current_cargo.parcel_id in ship_list:
-            #         print(self.current_cargo.parcel_id)
-            #     type+=1
-
+            
     def swap(self,ship1,ship2,nrp1,nrp2):
         p1=ship1.get_random_parcel()
         p2=ship2.get_random_parcel()
