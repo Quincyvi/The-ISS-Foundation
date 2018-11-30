@@ -108,6 +108,18 @@ class spacefreight():
                     print(j)
                 print()
 
+    def random_fill(self): # maak random indeling
+        print("random_fill")
+        cargo_to_fill=round(len(self.cargo)/2) # fill half, just a test
+        print("fill first:",cargo_to_fill," parcels")
+        for cargo_index in range(0,cargo_to_fill):
+            print("try fit:",cargo_index)
+            current_cargo = self.cargo[cargo_index]
+            ship_index= random.randint(0, len(self.ships)-1)
+            current_ship=self.ships[ship_index]
+            if current_ship.fit(current_cargo):
+                current_ship.take(current_cargo)
+                print("  parcel:",cargo_index," in:", ship_index)
 
     def swap(self):
         ship1_count = random.randint(0, 3)
@@ -126,8 +138,11 @@ class spacefreight():
         if ship1.fit(p1_2) == True and ship2.fit(p1_1) == True:
             ship1.take(p1_2)
             ship2.take(p1_1)
-            print('het kan')
+            print("het kan, swap ",p1_2," met ",p1_1)
+            print("ship1:",ship1)
+            print("ship2:",ship2)
         else:
+            print('het kan niet')
             ship1.take(p1_1)
             ship2.take(p1_2)
 
@@ -150,11 +165,10 @@ if __name__ == "__main__":
     ship = 1
     item = 37
     space_freight = spacefreight('ListTest')
-    space_freight.calculate_greedy(ship, item)
+    #space_freight.calculate_greedy(ship, item)
+    space_freight.random_fill() # start met random indeling
+    print(space_freight) # print de indeling van space crafts
     i = 0
-    while i < 1000000000000000:
-        space_freight.swap()
-        i+=1
-
-
-## clear & herhaal calculate, observaties ergens saven, enkel de beste uitkomst.
+    while i < 10:
+         space_freight.swap()
+         i+=1
