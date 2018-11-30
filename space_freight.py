@@ -14,6 +14,15 @@ class spacefreight():
         self.ships = self.load_ships(f"spacecraft.txt")
         self.cargo = self.load_cargo(f"CargoLists/Cargo{list}.csv")
 
+    def __str__(self):
+        s="============= ships:\n"
+        for i in self.ships:
+            s+=str(i)
+        s+="============= cargo:\n"
+        for i in self.cargo:
+            s+=str(i)
+        return s
+
     def load_cargo(self, filename):
         list_cargo = []
         with open(filename) as csv_data:
@@ -147,19 +156,6 @@ class spacefreight():
             ship2.take(p1_2)
 
         p1_1len = len(ship1.inventory.inventory)
-        # p1=ship1.get_random_parcel()
-        # p2=ship2.get_random_parcel()
-        # ship1.remove(p1)
-        # ship2.remove(p2)
-        # if ship1.fit(p2) and ship2.fit(p1):
-        #     ship1.add(p2)
-        #     ship2.add(p1)
-        #     if score<oud_score:
-        #         ship1.remove(p2)
-        #         ship2.remove(p1)
-        #         ship1.add(p1)
-        #         ship2.add(p2)
-
 
 if __name__ == "__main__":
     ship = 1
