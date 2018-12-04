@@ -97,26 +97,10 @@ class spacefreight():
         if len(self.ship_list) >= 96:
             locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
             start_ships = ship - count_ships
-            start_cargo = item % 97
+            start_cargo = item % len(self.cargo)
             print('the start number for cargo list = ', start_cargo)
             print('the start number for ship list = ', start_ships)
             print('the max value is: ', len(self.ship_list))
-            total_costs = []
-            for spacecraft in self.ships:
-                print(spacecraft)
-                print('The total costs for this ship is: ', \
-                     locale.currency(spacecraft.total_costs(), grouping = True))
-            type = 0
-            while type <= len(ship_list):
-                self.current_cargo = self.cargo[type]
-                if not self.current_cargo.parcel_id in self.ship_list:
-                    print(self.current_cargo.parcel_id)
-                type+=1
-            for i in self.ships:
-                print(i)
-                for j in i.inventory.inventory:
-                    print(j)
-                print()
 
     def random_fill(self): # maak random indeling
         # print("random_fill")
@@ -165,6 +149,30 @@ class spacefreight():
 
     def count(self):
         return len(self.ship_list)
+
+    def info(self):
+        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+        for i in self.ships:
+            print(i)
+            for j in i.inventory.inventory:
+                print(j)
+        total_costs = []
+        for spacecraft in self.ships:
+            print(spacecraft)
+            total_costs.append(spacecraft.total_costs())
+            print('The total costs for this ship is: ', \
+                 locale.currency(spacecraft.total_costs(), grouping = True))
+        print()
+        print('The total transport costs are:',\
+              locale.currency(sum(total_costs), grouping = True))
+        print('The costs per parcel are:',\
+              locale.currency(sum(total_costs)/len(self.ship_list), grouping = True))
+        type = 0
+        while type <= len(self.ship_list):
+            self.current_cargo = self.cargo[type]
+            if not self.current_cargo in self.ship_list:
+                print(self.current_cargo.parcel_id)
+            type+=1
 if __name__ == "__main__":
     k = 0
     while k < 10000:
@@ -185,5 +193,6 @@ if __name__ == "__main__":
             # print(space_freight)
         if space_freight.count() >= 96:
             print(space_freight.count())
+            space_freight.info()
             # print(space_freight) # print de indeling van space crafts
         k+=1
