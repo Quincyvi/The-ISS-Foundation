@@ -13,6 +13,16 @@ class spacefreight():
         # call the files that are needed for the operation
         self.ships = self.load_ships(f"spacecraft.txt")
         self.cargo = self.load_cargo(f"CargoLists/Cargo{list}.csv")
+        self.ship_list = []
+
+    def __str__(self):
+        s="============= ships:\n"
+        for i in self.ships:
+            s+=str(i)
+        s+="============= cargo:\n"
+        for i in self.cargo:
+            s+=str(i)
+        return s
 
     def load_cargo(self, filename):
         list_cargo = []
@@ -20,7 +30,7 @@ class spacefreight():
                 reader = csv.reader(csv_data, delimiter=',')
                 next(reader)
                 val_sorted = sorted(reader, key = lambda\
-                    x:float(x[2])/float(x[1]), reverse=False)
+                    x:float(x[2]), reverse=True)
                     #x:float(x[2]), reverse=False)
                 for line in val_sorted:
                     parcel_id = line[0]
@@ -38,7 +48,7 @@ class spacefreight():
         with open(filename) as csv_data:
                 reader = csv.reader(csv_data, delimiter=',')
                 val_sorted = sorted(reader, key = lambda\
-                                    x:float(x[3])/float(x[2]), reverse=False)
+                                    x:float(x[2]), reverse=False)
                 for line in val_sorted:
                     ship_name = line[0]
                     ship_location = line[1]
@@ -57,162 +67,128 @@ class spacefreight():
         return list_ships
 
     def calculate_greedy(self, ship, item):
-        for ship_standard in self.ships:
-            ship_standard_payload = ship_standard.payload_mass
-        ship_list = []
+        # ship_list = []
         count_cargo = 0
         count_ships = 0
         list_amount = []
         while count_ships < len(self.ships): # gaat over alle schepen
-            self.current_ship = self.ships[ship%4]
+            self.current_ship = self.ships[ship%len(self.ships)]
             cur = self.current_ship
-            # print(cur)
             y = 0
             aantal = 0
             while count_cargo < len(self.cargo):
-                self.current_cargo = self.cargo[item%97]
+                self.current_cargo = self.cargo[item%len(self.cargo)]
                 if cur.payload_mass < self.current_cargo.mass or\
                    cur.payload_volume < self.current_cargo.volume:
                     item+=1
                     count_cargo+=1
-                elif self.current_cargo.parcel_id in ship_list:
+                elif self.current_cargo.parcel_id in self.ship_list:
                     item+=1
                     count_cargo+=1
                 else: # als het wel ingeladen kan worden:
-                    cur.payload_mass -= self.current_cargo.mass
-                    cur.payload_volume -= self.current_cargo.volume
                     cur.take(self.current_cargo)
-                    ship_list.append(self.current_cargo.parcel_id)
+                    self.ship_list.append(self.current_cargo.parcel_id)
                     item+=1
                     count_cargo+=1
                     aantal+=1
+                    # print('ja')
             count_cargo = 0
             ship+=1
             count_ships+=1
-        if len(ship_list) >= 96:
+        if len(self.ship_list) >= 60:
+            locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
             start_ships = ship - count_ships
-            start_cargo = item % 97
+            start_cargo = item % len(self.cargo)
             print('the start number for cargo list = ', start_cargo)
             print('the start number for ship list = ', start_ships)
-            print('the max value is: ', len(ship_list))
-            # print(ship_list)
-            total_costs = 0
+            print('the max value is: ', len(self.ship_list))
+            total_costs = []
             for spacecraft in self.ships:
                 print(spacecraft)
-                total_payload_weight = ship_standard_payload - spacecraft.payload_mass
-                payload_fuel_mass = (spacecraft.mass + total_payload_weight)\
-                                    * spacecraft.fuel_to_weight
-                ship_fuel_mass = (spacecraft.mass + total_payload_weight\
-                                 + payload_fuel_mass) * spacecraft.fuel_to_weight
-                total_ship_fuel_mass = (spacecraft.mass + total_payload_weight)\
-                                       * (spacecraft.fuel_to_weight / \
-                                       (1 - spacecraft.fuel_to_weight))
-                ship_costs = np.ceil(total_ship_fuel_mass * 1000)
-                print('The total fuel mass is: {} kg'.format(total_ship_fuel_mass))
-                locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-                costs_per_ship = spacecraft.base_costs + ship_costs
-                total_costs += costs_per_ship
-                print(locale.currency(costs_per_ship, grouping = True))
+                print('The total costs for this ship is: ', \
+                     locale.currency(spacecraft.total_costs(), grouping = True))
+            type = 0
+            while type <= len(self.ship_list):
+                self.current_cargo = self.cargo[type]
+                if not self.current_cargo.parcel_id in self.ship_list:
+                    print(self.current_cargo.parcel_id)
+                type+=1
+            for i in self.ships:
+                print(i)
+                for j in i.inventory.inventory:
+                    print(j)
                 print()
-            print('The total costs for the operation is: ', locale.currency(total_costs, grouping = True))
-            cost_per_parcel = total_costs / len(ship_list)
-            print('The costs per parcel is: ', locale.currency(cost_per_parcel, grouping = True))
-            print()
-            print()
-            type = 0
-            print(len(ship_list))
-            while type <= 96:
-                self.current_cargo = self.cargo[type]
-                if not self.current_cargo.parcel_id in ship_list:
-                    print(self.current_cargo.parcel_id)
-                type+=1
+            print("goo", len(self.ship_list))
 
-    def calculate_hill_climben(self, ship, item):
-        for ship_standard in self.ships:
-            ship_standard_payload = ship_standard.payload_mass
-        ship_list = []
-        count_cargo = 0
-        count_ships = 0
-        list_amount = []
-        while count_ships < len(self.ships): # gaat over alle schepen
-            self.current_ship = self.ships[ship%4]
-            cur = self.current_ship
-            y = 0
-            aantal = 0
-            while count_cargo < len(self.cargo):
-                self.current_cargo = self.cargo[item%97]
-                if cur.payload_mass < self.current_cargo.mass or\
-                   cur.payload_volume < self.current_cargo.volume:
-                    item+=1
-                    count_cargo+=1
-                # elif self.current_cargo.volume > self.cargo[(item+1)%97].volume\
-                #      and self.current_cargo.mass > self.cargo[(item+1)%97].mass:
-                #     item+=1
-                #     count_cargo+=1
-                elif self.current_cargo.parcel_id in ship_list:
-                    item+=1
-                    count_cargo+=1
-                else: # als het wel ingeladen kan worden:
-                    cur.payload_mass -= self.current_cargo.mass
-                    cur.payload_volume -= self.current_cargo.volume
-                    cur.take(self.current_cargo)
-                    ship_list.append(self.current_cargo.parcel_id)
-                    item+=1
-                    count_cargo+=1
-                    aantal+=1
-            if cur.payload_volume < self.ships[(ship+1)%4].payload_volume and \
-               cur.payload_mass < self.ships[(ship+1)%4].payload_mass:
-                ship+=1
-                count_cargo = 0
-            else:
-                count_cargo = 0
-                count_ships+=1
-        if len(ship_list) >= 81:
-            start_ships = ship - count_ships
-            start_cargo = item % 97
-            print('the start number for cargo list = ', start_cargo)
-            print('the start number for ship list = ', start_ships)
-            print('the max value is: ', len(ship_list))
-            # print(ship_list)
-            total_costs = 0
-            for spacecraft in self.ships:
-                print(spacecraft)
-                total_payload_weight = ship_standard_payload - spacecraft.payload_mass
-                payload_fuel_mass = (spacecraft.mass + total_payload_weight)\
-                                    * spacecraft.fuel_to_weight
-                ship_fuel_mass = (spacecraft.mass + total_payload_weight\
-                                 + payload_fuel_mass) * spacecraft.fuel_to_weight
-                total_ship_fuel_mass = (spacecraft.mass + total_payload_weight)\
-                                       * (spacecraft.fuel_to_weight / \
-                                       (1 - spacecraft.fuel_to_weight))
-                ship_costs = np.ceil(total_ship_fuel_mass * 1000)
-                # print('The total fuel mass is: {} kg'.format(total_ship_fuel_mass))
-                locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-                costs_per_ship = spacecraft.base_costs + ship_costs
-                total_costs += costs_per_ship
-            #     print(locale.currency(costs_per_ship, grouping = True))
-            #     print()
-            # print('The total costs for the operation is: ', locale.currency(total_costs, grouping = True))
-            cost_per_parcel = total_costs / len(ship_list)
-            print('The costs per parcel is: ', locale.currency(cost_per_parcel, grouping = True))
-            print()
-            print()
-            type = 0
-            while type <= 96:
-                self.current_cargo = self.cargo[type]
-                if not self.current_cargo.parcel_id in ship_list:
-                    print(self.current_cargo.parcel_id)
-                type+=1
+    def random_fill(self): # maak random indeling
+        # print("random_fill")
+        cargo_to_fill=round(len(self.cargo)*3/5) # fill half, just a test
+        # print("fill first:",cargo_to_fill," parcels")
+        for cargo_index in range(0,cargo_to_fill):
+            # print("try fit:",cargo_index)
+            current_cargo = self.cargo[cargo_index]
+            ship_index= random.randint(0, len(self.ships)-1)
+            current_ship=self.ships[ship_index]
+            if current_ship.fit(current_cargo):
+                current_ship.take(current_cargo)
+                self.ship_list.append(current_cargo)
+                # print("  parcel:",cargo_index," in:", ship_index)
+
+
+    def swap(self):
+        ship1_count = random.randint(0, 3)
+        ship2_count = random.randint(0, 3)
+        if ship1_count == ship2_count:
+            ship2_count = ((ship2_count+1)%len(self.ships))
+        ship1 = self.ships[ship1_count]
+        ship2 = self.ships[ship2_count]
+        p1_1len = len(ship1.inventory.inventory)
+        i = random.randint(0, (len(ship1.inventory.inventory)-1))
+        j = random.randint(0, (len(ship2.inventory.inventory)-1))
+        p1_1 = ship1.inventory.inventory[i]
+        p1_2 = ship2.inventory.inventory[j]
+        ship1.inventory.remove(p1_1)
+        ship2.inventory.remove(p1_2)
+        if ship1.fit(p1_2) == True and ship2.fit(p1_1) == True:
+            ship1.take(p1_2)
+            ship2.take(p1_1)
+            # print("het kan, swap ",p1_2," met ",p1_1)
+            # print("ship1:",ship1)
+            # print("ship2:",ship2)
+        else:
+            # print('het kan niet')
+            ship1.take(p1_1)
+            ship2.take(p1_2)
+
+        p1_1len = len(ship1.inventory.inventory)
+
+    def count(self):
+        if len(self.ship_list) >= 70:
+            print(len(self.ship_list))
+
 
 if __name__ == "__main__":
-    ship = 0
-    item = 0
-    while ship < 4:
-        while item < 100:
-            space_freight = spacefreight('List2')
-            space_freight.calculate_hill_climben(ship, item)
-            item+=1
-        item=0
-        ship+=1
+    space_freight = spacefreight('List2')
+    d = 0
+    while d < 1000000:
+        space_freight.random_fill() # start met random indeling
+        # print(space_freight) # print de indeling van space crafts
+        i = 0
+        while i < 10:
+             space_freight.swap()
+             i+=1
+        if i == 10:
+            # print("greedy")
+            ship = random.randint(0, 3)
+            item = random.randint(0, 99)
+    # ship = 2
+    # item = 2
+            space_freight.calculate_greedy(ship, item)
+            j = 0
+            # while j < 10:
+            #     space_freight.swap()
+            #     j+=1
+            space_freight.count()
+            d += 1
 
-## clear & herhaal calculate, observaties ergens saven, enkel de beste uitkomst.
+                # print(space_freight)
