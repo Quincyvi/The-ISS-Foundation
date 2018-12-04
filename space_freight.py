@@ -170,6 +170,14 @@ class spacefreight():
             if not current_cargo in self.ship_list:
                 print(current_cargo.parcel_id)
             type+=1
+    def cost(self):
+        total_costs = []
+        for spacecraft in self.ships:
+            # print(spacecraft)
+            total_costs.append(spacecraft.total_costs())
+            # print('The total costs for this ship is: ', \
+                 # locale.currency(spacecraft.total_costs(), grouping = True))
+        return sum(total_costs)
 if __name__ == "__main__":
     print('Argument List:', str(sys.argv))
     if sys.argv[1]=="greedy":
@@ -187,6 +195,7 @@ if __name__ == "__main__":
     elif sys.argv[1]=="hill":
         best_nr_parcel_packed = 0
         k = 0
+        cost = 100000000000000000
         while k < 10000:
             space_freight = spacefreight(sys.argv[2])
             z = 0
@@ -200,9 +209,10 @@ if __name__ == "__main__":
                 z+=1
                 space_freight.random_fill()
                 # print(space_freight)
-            if space_freight.count() > best_nr_parcel_packed:
-                print(space_freight.count())
-                # space_freight.info()
+            if space_freight.count() >= best_nr_parcel_packed:
                 best_nr_parcel_packed = space_freight.count()
-                # print(space_freight) # print de indeling van space crafts
+                if space_freight.cost() < cost:
+                    print(space_freight.cost())
+                    print(space_freight.count())
+                    cost = space_freight.cost()
             k+=1
