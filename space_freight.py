@@ -78,8 +78,7 @@ class spacefreight():
             aantal = 0
             while count_cargo < len(self.cargo):
                 current_cargo = self.cargo[item%len(self.cargo)]
-                if cur.payload_mass < current_cargo.mass or\
-                   cur.payload_volume < current_cargo.volume:
+                if not cur.fit(current_cargo):
                     item+=1
                     count_cargo+=1
                 elif current_cargo in self.ship_list:
