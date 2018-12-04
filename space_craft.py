@@ -26,6 +26,12 @@ class Spacecraft(object):
         self.payload_mass = self.payload_mass - item.mass
         self.mass_taken.append(item.mass)
         self.payload_volume = self.payload_volume - item.volume
+        
+    def remove(self, item):
+        self.inventory.remove(item)
+        self.payload_mass = self.payload_mass + item.mass
+        self.mass_taken.remove(item.mass)
+        self.payload_volume = self.payload_volume + item.volume
 
     def fit(self, item):
         if item.mass < self.payload_mass and item.volume < self.payload_volume:

@@ -13,6 +13,7 @@ class spacefreight():
         # call the files that are needed for the operation
         self.ships = self.load_ships(f"spacecraft.txt")
         self.cargo = self.load_cargo(f"CargoLists/Cargo{list}.csv")
+        self.ship_list = []
 
     def __str__(self):
         s="============= ships:\n"
@@ -86,20 +87,20 @@ class spacefreight():
                     count_cargo+=1
                 else: # als het wel ingeladen kan worden:
                     cur.take(self.current_cargo)
-                    ship_list.append(self.current_cargo.parcel_id)
+                    self.ship_list.append(self.current_cargo.parcel_id)
                     item+=1
                     count_cargo+=1
                     aantal+=1
             count_cargo = 0
             ship+=1
             count_ships+=1
-        if len(ship_list) >= 96:
+        if len(self.ship_list) >= 96:
             locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
             start_ships = ship - count_ships
             start_cargo = item % 97
             print('the start number for cargo list = ', start_cargo)
             print('the start number for ship list = ', start_ships)
-            print('the max value is: ', len(ship_list))
+            print('the max value is: ', len(self.ship_list))
             total_costs = []
             for spacecraft in self.ships:
                 print(spacecraft)
@@ -108,7 +109,7 @@ class spacefreight():
             type = 0
             while type <= len(ship_list):
                 self.current_cargo = self.cargo[type]
-                if not self.current_cargo.parcel_id in ship_list:
+                if not self.current_cargo.parcel_id in self.ship_list:
                     print(self.current_cargo.parcel_id)
                 type+=1
             for i in self.ships:
@@ -118,18 +119,22 @@ class spacefreight():
                 print()
 
     def random_fill(self): # maak random indeling
-        print("random_fill")
-        cargo_to_fill=round(len(self.cargo)/2) # fill half, just a test
-        print("fill first:",cargo_to_fill," parcels")
+        # print("random_fill")
+        cargo_to_fill=round(len(self.cargo)) # fill half, just a test
+        # print("fill first:",cargo_to_fill," parcels")
         for cargo_index in range(0,cargo_to_fill):
-            print("try fit:",cargo_index)
+            # print("try fit:",cargo_index)
             current_cargo = self.cargo[cargo_index]
             ship_index= random.randint(0, len(self.ships)-1)
             current_ship=self.ships[ship_index]
             if current_ship.fit(current_cargo):
-                current_ship.take(current_cargo)
-                print("  parcel:",cargo_index," in:", ship_index)
-
+                if current_cargo in self.ship_list:
+                    # print('kan niet')
+                    k = 0
+                else:
+                    current_ship.take(current_cargo)
+                    # print("  parcel:",cargo_index," in:", ship_index)
+                    self.ship_list.append(current_cargo)
     def swap(self):
         ship1_count = random.randint(0, 3)
         ship2_count = random.randint(0, 3)
@@ -142,29 +147,43 @@ class spacefreight():
         j = random.randint(0, (len(ship2.inventory.inventory)-1))
         p1_1 = ship1.inventory.inventory[i]
         p1_2 = ship2.inventory.inventory[j]
-        ship1.inventory.remove(p1_1)
-        ship2.inventory.remove(p1_2)
+        ship1.remove(p1_1)
+        ship2.remove(p1_2)
         if ship1.fit(p1_2) == True and ship2.fit(p1_1) == True:
             ship1.take(p1_2)
             ship2.take(p1_1)
-            print("het kan, swap ",p1_2," met ",p1_1)
-            print("ship1:",ship1)
-            print("ship2:",ship2)
+            # print("het kan, swap ",p1_2," met ",p1_1)
+            # print("ship1:",ship1)
+            # print("ship2:",ship2)
         else:
-            print('het kan niet')
+            # print('het kan niet')
             ship1.take(p1_1)
             ship2.take(p1_2)
 
         p1_1len = len(ship1.inventory.inventory)
+        p1_2len = len(ship2.inventory.inventory)
 
+    def count(self):
+        return len(self.ship_list)
 if __name__ == "__main__":
-    ship = 1
-    item = 37
-    space_freight = spacefreight('ListTest')
-    #space_freight.calculate_greedy(ship, item)
-    space_freight.random_fill() # start met random indeling
-    print(space_freight) # print de indeling van space crafts
-    i = 0
-    while i < 10:
-         space_freight.swap()
-         i+=1
+    k = 0
+    while k < 10000:
+        space_freight = spacefreight('ListTest')
+        z = 0
+        while z < 100:
+            # ship = 1
+            # item = 37
+            # space_freight.calculate_greedy(ship, item)
+            space_freight.random_fill() # start met random indeling
+            # print(space_freight) # print de indeling van space crafts
+            i = 0
+            while i < 10:
+                 space_freight.swap()
+                 i+=1
+            z+=1
+            space_freight.random_fill()
+            # print(space_freight)
+        if space_freight.count() >= 96:
+            print(space_freight.count())
+            # print(space_freight) # print de indeling van space crafts
+        k+=1
