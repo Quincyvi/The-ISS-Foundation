@@ -78,8 +78,7 @@ class spacefreight():
             aantal = 0
             while count_cargo < len(self.cargo):
                 current_cargo = self.cargo[item%len(self.cargo)]
-                if cur.payload_mass < current_cargo.mass or\
-                   cur.payload_volume < current_cargo.volume:
+                if not cur.fit(current_cargo):
                     item+=1
                     count_cargo+=1
                 elif current_cargo in self.ship_list:
@@ -174,11 +173,11 @@ class spacefreight():
 if __name__ == "__main__":
     print('Argument List:', str(sys.argv))
     if sys.argv[1]=="greedy":
-        space_freight = spacefreight('ListTest')
+        space_freight = spacefreight(sys.argv[2])
         best_nr_parcel_packed = 0
         for ship_index in range(0,len(space_freight.ships)):
             for item_index in range(0,len(space_freight.cargo)):
-                space_freight = spacefreight('ListTest')
+                space_freight = spacefreight(sys.argv[2])
                 space_freight.calculate_greedy(ship_index, item_index)
                 if space_freight.count() > best_nr_parcel_packed:
                     print(space_freight.count())
@@ -189,7 +188,7 @@ if __name__ == "__main__":
         best_nr_parcel_packed = 0
         k = 0
         while k < 10000:
-            space_freight = spacefreight('List2')
+            space_freight = spacefreight(sys.argv[2])
             z = 0
             while z < 100:
                 space_freight.random_fill() # start met random indeling
