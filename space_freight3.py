@@ -5,6 +5,7 @@ import locale
 from space_craft import Spacecraft
 from cargo import Cargo
 from inventory import Inventory
+import sys
 # import matplotlib.pyplot as plt
 
 class spacefreight():
@@ -99,26 +100,26 @@ class spacefreight():
             locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
             start_ships = ship - count_ships
             start_cargo = item % len(self.cargo)
-            print('the start number for cargo list = ', start_cargo)
-            print('the start number for ship list = ', start_ships)
-            print('the max value is: ', len(self.ship_list))
+            # print('the start number for cargo list = ', start_cargo)
+            # print('the start number for ship list = ', start_ships)
+            # print('the max value is: ', len(self.ship_list))
             total_costs = []
-            for spacecraft in self.ships:
-                print(spacecraft)
-                print('The total costs for this ship is: ', \
-                     locale.currency(spacecraft.total_costs(), grouping = True))
-            type = 0
-            while type <= len(self.ship_list):
-                self.current_cargo = self.cargo[type]
-                if not self.current_cargo.parcel_id in self.ship_list:
-                    print(self.current_cargo.parcel_id)
-                type+=1
-            for i in self.ships:
-                print(i)
-                for j in i.inventory.inventory:
-                    print(j)
-                print()
-            print("goo", len(self.ship_list))
+            # for spacecraft in self.ships:
+            #     print(spacecraft)
+            #     print('The total costs for this ship is: ', \
+            #          locale.currency(spacecraft.total_costs(), grouping = True))
+            # type = 0
+            # while type <= len(self.ship_list):
+            #     self.current_cargo = self.cargo[type]
+            #     if not self.current_cargo.parcel_id in self.ship_list:
+            #         # print(self.current_cargo.parcel_id)
+            #     type+=1
+            # for i in self.ships:
+            #     print(i)
+            #     for j in i.inventory.inventory:
+            #         print(j)
+            #     print()
+            # print("goo", len(self.ship_list))
 
     def random_fill(self): # maak random indeling
         # print("random_fill")
@@ -161,34 +162,76 @@ class spacefreight():
             ship2.take(p1_2)
 
         p1_1len = len(ship1.inventory.inventory)
-
     def count(self):
         return len(self.ship_list)
 
+    def info(self):
+        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+        for i in self.ships:
+            count = 0
+            for j in i.inventory.inventory:
+                count+=1
+
+            print(count)
+            print((i.total_costs()/count))
+        total_costs = []
+        for spacecraft in self.ships:
+            print(spacecraft)
+            total_costs.append(spacecraft.total_costs())
+            print('The total costs for this ship is: ', \
+                 locale.currency(spacecraft.total_costs(), grouping = True))
+        print()
+        print('The total transport costs are:',\
+              locale.currency(sum(total_costs), grouping = True))
+        print('The costs per parcel are:',\
+              locale.currency(sum(total_costs)/len(self.ship_list), grouping = True))
+
+        # type = 0
+        # while type <= len(self.ship_list):
+        #     current_cargo = self.cargo[type]
+        #     if not current_cargo in self.ship_list:
+        #         print(current_cargo.parcel_id)
+            # type+=1
 
 if __name__ == "__main__":
-    k = 0
-    best_count_parcels = 0
-    space_freight = spacefreight('List3')
-    while k < 1000:
+    print('Argument List:', str(sys.argv))
+    if sys.argv[1]=="greedy":
+        space_freight = spacefreight(sys.argv[2])
+        best_nr_parcel_packed = 0
+        for ship_index in range(0,len(space_freight.ships)):
+            for item_index in range(0,len(space_freight.cargo)):
+                space_freight = spacefreight( sys.argv[2])
+                space_freight.calculate_greedy(ship_index, item_index)
+                if space_freight.count() > best_nr_parcel_packed:
+                    print(space_freight.count())
+                    # space_freight.info()
+                    best_nr_parcel_packed = space_freight.count()
+                if best_nr_parcel_packed == space_freight.count():
+                    space_freight.info()
 
-        # z = 0
-        # while z < 10:
-        ship = 1
-        item = 37
-        space_freight.calculate_greedy(ship, item)
-        # space_freight.random_fill() # start met random indeling
-            # print(space_freight) # print de indeling van space crafts
-        #     i = 0
-        #     while i < 10:
-        #          space_freight.swap()
-        #          i+=1
-        #     z+=1
-        #     space_freight.random_fill()
-        #     # print(space_freight)
-        if space_freight.count() > best_count_parcels:
-            print(best_count_parcels)
-            best_count_parcels = space_freight.count()
-            print("ships")
-            print(space_freight) # print de indeling van space crafts
-        k+=1
+    elif sys.argv[1]=="hill":
+        best_nr_parcel_packed = 0
+        cost = 100000000000
+        k = 0
+        while k < 10000:
+            space_freight = spacefreight(sys.argv[2])
+            z = 0
+            while z < 100:
+                space_freight.random_fill() # start met random indeling
+                # print(space_freight) # print de indeling van space crafts
+                i = 0
+                while i < 10:
+                     space_freight.swap()
+                     i+=1
+                z+=1
+                space_freight.random_fill()
+                # print(space_freight)
+            if space_freight.count() >= best_nr_parcel_packed:
+
+                # space_freight.info()
+                best_nr_parcel_packed = space_freight.count()
+                # if space_freight.cost() < cost:
+                print(space_freight.cost())
+                print(space_freight.count())
+                # # print(space_freight) # print de indeling van space crafts
+            k+=1

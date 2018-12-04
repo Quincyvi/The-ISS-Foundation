@@ -196,7 +196,7 @@ if __name__ == "__main__":
 
     elif sys.argv[1]=="hill":
         best_nr_parcel_packed = 0
-        cost = 10^1000
+        cost = 10000000
         k = 0
         while k < 10000:
             space_freight = spacefreight(sys.argv[2])
@@ -215,8 +215,8 @@ if __name__ == "__main__":
 
                 # space_freight.info()
                 best_nr_parcel_packed = space_freight.count()
-                if space_freight.cost() < cost:
-                    print(space_freight.cost())
-                    print(space_freight.count())
+                # if space_freight.cost() < cost:
+                print(space_freight.cost())
+                print(space_freight.count())
                 # # print(space_freight) # print de indeling van space crafts
             k+=1
