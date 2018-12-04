@@ -163,32 +163,28 @@ class spacefreight():
         p1_1len = len(ship1.inventory.inventory)
 
     def count(self):
-        if len(self.ship_list) >= 70:
-            print(len(self.ship_list))
+        return len(self.ship_list)
 
 
 if __name__ == "__main__":
-    space_freight = spacefreight('List2')
-    d = 0
-    while d < 1000000:
-        space_freight.random_fill() # start met random indeling
-        # print(space_freight) # print de indeling van space crafts
-        i = 0
-        while i < 10:
-             space_freight.swap()
-             i+=1
-        if i == 10:
-            # print("greedy")
-            ship = random.randint(0, 3)
-            item = random.randint(0, 99)
-    # ship = 2
-    # item = 2
-            space_freight.calculate_greedy(ship, item)
-            j = 0
-            # while j < 10:
-            #     space_freight.swap()
-            #     j+=1
-            space_freight.count()
-            d += 1
-
-                # print(space_freight)
+    k = 0
+    while k < 1000:
+        space_freight = spacefreight('List2')
+        z = 0
+        while z < 10:
+            # ship = 1
+            # item = 37
+            # space_freight.calculate_greedy(ship, item)
+            space_freight.random_fill() # start met random indeling
+            # print(space_freight) # print de indeling van space crafts
+            i = 0
+            while i < 10:
+                 space_freight.swap()
+                 i+=1
+            z+=1
+            space_freight.random_fill()
+            # print(space_freight)
+        if space_freight.count() >= 60:
+            print(space_freight.count())
+            # print(space_freight) # print de indeling van space crafts
+        k+=1
