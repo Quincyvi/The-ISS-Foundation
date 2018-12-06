@@ -217,11 +217,12 @@ if __name__ == "__main__":
                         space_freight = spacefreight(sys.argv[2])
                         space_freight.calculate_greedy(ship_index, item_index)
                         if space_freight.count() >= best_nr_parcel_packed:
-                            print(best_nr_parcel_packed)
+                            # print(best_nr_parcel_packed)
                             # print(space_freight.cost())
                             if space_freight.cost() < cost:
-                                print(space_freight.cost())
-                                print(space_freight.count())
+                                print('aantal parcels mee: ', space_freight.count())
+                                print('kosten: ', space_freight.cost())
+                                print()
                                 cost = space_freight.cost()
                                 best_nr_parcel_packed = space_freight.count()
                             elif space_freight.count() > best_nr_parcel_packed:
@@ -249,11 +250,12 @@ if __name__ == "__main__":
                     space_freight.random_fill()
                     # print(space_freight)
                 if space_freight.count() >= best_nr_parcel_packed:
-                    print(best_nr_parcel_packed)
+                    # print(best_nr_parcel_packed)
                     # print(space_freight.cost())
                     if space_freight.cost() < cost:
-                        print(space_freight.cost())
-                        print(space_freight.count())
+                        print('aantal parcels mee: ', space_freight.count())
+                        print('kosten: ', space_freight.cost())
+                        print()
                         cost = space_freight.cost()
                         best_nr_parcel_packed = space_freight.count()
                     elif space_freight.count() > best_nr_parcel_packed:
