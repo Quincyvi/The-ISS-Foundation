@@ -170,6 +170,7 @@ class spacefreight():
             if not current_cargo in self.ship_list:
                 print(current_cargo.parcel_id)
             type+=1
+
     def cost(self):
         total_costs = []
         for spacecraft in self.ships:
@@ -178,41 +179,83 @@ class spacefreight():
             # print('The total costs for this ship is: ', \
                  # locale.currency(spacecraft.total_costs(), grouping = True))
         return sum(total_costs)
+
+    def delete_outliners(self):
+        total_ship_mass = []
+        total_ship_volume = []
+        total_cargo_mass = []
+        total_cargo_volume = []
+        cargo_list_length = 0
+        for i in self.ships:
+            total_ship_mass.append(i.payload_mass)
+            total_ship_volume.append(i.payload_volume)
+        for i in self.cargo:
+            total_cargo_mass.append(i.mass)
+            total_cargo_volume.append(i.volume)
+
+        while sum(total_ship_mass) < sum(total_cargo_mass) or sum(total_ship_volume) < sum(total_cargo_volume):
+            k = total_cargo_volume.pop(random.randrange(len(total_cargo_volume)))
+            for i in self.cargo:
+                if k == i.volume:
+                    self.cargo.remove(i)
+                    total_cargo_mass.remove(i.mass)
+        return len(self.cargo)
+
 if __name__ == "__main__":
     print('Argument List:', str(sys.argv))
     if sys.argv[1]=="greedy":
-        space_freight = spacefreight(sys.argv[2])
+        count_cargo = 0
+        i = 0
+        cost = 100000000000000000
         best_nr_parcel_packed = 0
-        for ship_index in range(0,len(space_freight.ships)):
-            for item_index in range(0,len(space_freight.cargo)):
-                space_freight = spacefreight(sys.argv[2])
-                space_freight.calculate_greedy(ship_index, item_index)
-                if space_freight.count() > best_nr_parcel_packed:
-                    print(space_freight.count())
-                    # space_freight.info()
-                    best_nr_parcel_packed = space_freight.count()
+        while i < 100000:
+            space_freight = spacefreight(sys.argv[2])
+            if space_freight.delete_outliners() >= count_cargo:
+                count_cargo = space_freight.delete_outliners()
+                for ship_index in range(0,len(space_freight.ships)):
+                    for item_index in range(0,len(space_freight.cargo)):
+                        space_freight = spacefreight(sys.argv[2])
+                        space_freight.calculate_greedy(ship_index, item_index)
+                        if space_freight.count() >= best_nr_parcel_packed:
+                            print(best_nr_parcel_packed)
+                            # print(space_freight.cost())
+                            if space_freight.cost() < cost:
+                                print(space_freight.cost())
+                                print(space_freight.count())
+                                cost = space_freight.cost()
+                                best_nr_parcel_packed = space_freight.count()
+                            elif space_freight.count() > best_nr_parcel_packed:
+                                cost = space_freight.cost()
+            i+=1
 
     elif sys.argv[1]=="hill":
+        count_cargo = 0
         best_nr_parcel_packed = 0
         k = 0
         cost = 100000000000000000
-        while k < 10000:
+        while k < 1000000:
             space_freight = spacefreight(sys.argv[2])
-            z = 0
-            while z < 100:
-                space_freight.random_fill() # start met random indeling
-                # print(space_freight) # print de indeling van space crafts
-                i = 0
-                while i < 10:
-                     space_freight.swap()
-                     i+=1
-                z+=1
-                space_freight.random_fill()
-                # print(space_freight)
-            if space_freight.count() >= best_nr_parcel_packed:
-                best_nr_parcel_packed = space_freight.count()
-                if space_freight.cost() < cost:
-                    print(space_freight.cost())
-                    print(space_freight.count())
-                    cost = space_freight.cost()
+            if space_freight.delete_outliners() >= count_cargo:
+                count_cargo = space_freight.delete_outliners()
+                z = 0
+                while z < 100:
+                    space_freight.random_fill() # start met random indeling
+                    # print(space_freight) # print de indeling van space crafts
+                    i = 0
+                    while i < 10:
+                         space_freight.swap()
+                         i+=1
+                    z+=1
+                    space_freight.random_fill()
+                    # print(space_freight)
+                if space_freight.count() >= best_nr_parcel_packed:
+                    print(best_nr_parcel_packed)
+                    # print(space_freight.cost())
+                    if space_freight.cost() < cost:
+                        print(space_freight.cost())
+                        print(space_freight.count())
+                        cost = space_freight.cost()
+                        best_nr_parcel_packed = space_freight.count()
+                    elif space_freight.count() > best_nr_parcel_packed:
+                        cost = space_freight.cost()
             k+=1
