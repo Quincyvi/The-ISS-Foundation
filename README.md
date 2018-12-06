@@ -9,6 +9,8 @@ State Space for:
       4^100
   + max cargoList3:
       90^1000
+
+      
 spacecraft with least space, (Cygnus)
 + Upper Bound:
   + CargoList1:
@@ -23,7 +25,7 @@ spacecraft with least space, (Cygnus)
 + Cargo List1: 97 parcels
 + Cargo List2: 92 parcels
 
-### All parcels will be shipped and multiple spacecrafts will be used.
+### All parcels will be shipped and multiple spacecrafts will be used
 + Cargo List3: 1000 parcels
 
 + Max used spacecrafts: 90 (Cygnus x 90)
