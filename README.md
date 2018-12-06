@@ -10,8 +10,8 @@ State Space for:
   + max cargoList3:
       90^1000
 
-      
-spacecraft with least space, (Cygnus)
+
+spacecraft with least space (Cygnus)
 + Upper Bound:
   + CargoList1:
       5^100
