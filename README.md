@@ -18,8 +18,8 @@ spacecraft with least space, (Cygnus)
   + CargoList3:
       6^1000
 
-### Max number of parcels that can be shipped with the 4 spacecrafts,
-calculated with sum of total payload mass and sum of total payload volume minus total mass parcels and total volume parcels:
+### Max number of parcels that can be shipped with the 4 spacecrafts
+#### Calculated with sum of total payload mass and sum of total payload volume minus total mass parcels and total volume parcels:
 + Cargo List1: 97 parcels
 + Cargo List2: 92 parcels
 
