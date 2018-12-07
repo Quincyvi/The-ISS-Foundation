@@ -7,7 +7,7 @@ from cargo import Cargo
 from inventory import Inventory
 import sys
 import timeit
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 class spacefreight():
     def __init__(self, list):
