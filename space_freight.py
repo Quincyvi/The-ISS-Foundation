@@ -234,7 +234,7 @@ if __name__ == "__main__":
         best_nr_parcel_packed = 0
         k = 0
         cost = 100000000000000000
-        while k < 1000000:
+        while k < 100000000:
             space_freight = spacefreight(sys.argv[2])
             if space_freight.delete_outliners() >= count_cargo:
                 count_cargo = space_freight.delete_outliners()
@@ -260,4 +260,34 @@ if __name__ == "__main__":
                         best_nr_parcel_packed = space_freight.count()
                     elif space_freight.count() > best_nr_parcel_packed:
                         cost = space_freight.cost()
+            k+=1
+
+    elif sys.argv[1]=="hill1":
+        best_nr_parcel_packed = 0
+        k = 0
+        cost = 100000000000000000
+        while k < 1000000:
+            space_freight = spacefreight(sys.argv[2])
+            z = 0
+            while z < 100:
+                space_freight.random_fill() # start met random indeling
+                # print(space_freight) # print de indeling van space crafts
+                i = 0
+                while i < 10:
+                     space_freight.swap()
+                     i+=1
+                z+=1
+                space_freight.random_fill()
+                # print(space_freight)
+            if space_freight.count() >= best_nr_parcel_packed:
+                # print(best_nr_parcel_packed)
+                # print(space_freight.cost())
+                if space_freight.cost() < cost:
+                    print('aantal parcels mee: ', space_freight.count())
+                    print('kosten: ', space_freight.cost())
+                    print()
+                    cost = space_freight.cost()
+                    best_nr_parcel_packed = space_freight.count()
+                elif space_freight.count() > best_nr_parcel_packed:
+                    cost = space_freight.cost()
             k+=1
