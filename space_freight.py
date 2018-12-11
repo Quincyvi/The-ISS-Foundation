@@ -337,9 +337,9 @@ if __name__ == "__main__":
             space_freight = spacefreight(sys.argv[2])
             space_freight.random_fill()
             # print(space_freight)
-            cost_plot.append(space_freight.cost())
-            count_plot.append(space_freight.count())
             if space_freight.count() >= best_nr_parcel_packed:
+                cost_plot.append(space_freight.cost())
+                count_plot.append(space_freight.count())
                 # print(best_nr_parcel_packed)
                 # print(space_freight.cost())
                 if space_freight.cost() < cost:
@@ -349,8 +349,12 @@ if __name__ == "__main__":
                     print()
                     cost = space_freight.cost()
                     best_nr_parcel_packed = space_freight.count()
+                    # cost_plot.append(space_freight.cost())
+                    # count_plot.append(space_freight.count())
                 elif space_freight.count() > best_nr_parcel_packed:
                     cost = space_freight.cost()
+                    # cost_plot.append(space_freight.cost())
+                    # count_plot.append(space_freight.count())
             i+=1
         stop = timeit.default_timer()
         print('Time: ', (stop - start))
