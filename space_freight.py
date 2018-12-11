@@ -212,7 +212,6 @@ if __name__ == "__main__":
         best_nr_parcel_packed = 0
         cost_plot = []
         count_plot = []
-        time = []
         while i < 100000:
             space_freight = spacefreight(sys.argv[2])
             if space_freight.delete_outliners() >= count_cargo:
@@ -221,6 +220,8 @@ if __name__ == "__main__":
                     for item_index in range(0,len(space_freight.cargo)):
                         space_freight = spacefreight(sys.argv[2])
                         space_freight.calculate_greedy(ship_index, item_index)
+                        cost_plot.append(space_freight.cost())
+                        count_plot.append(space_freight.count())
                         if space_freight.count() >= best_nr_parcel_packed:
                             # print(best_nr_parcel_packed)
                             # print(space_freight.cost())
@@ -230,23 +231,23 @@ if __name__ == "__main__":
                                 print()
                                 cost = space_freight.cost()
                                 best_nr_parcel_packed = space_freight.count()
-                                cost_plot.append(cost)
-                                count_plot.append(best_nr_parcel_packed)
                             elif space_freight.count() > best_nr_parcel_packed:
                                 cost = space_freight.cost()
             i+=1
         stop = timeit.default_timer()
         print('Time: ', (stop - start))
-        time.append(stop-start)
+
         plt.hist(cost_plot)
         plt.xlabel("Cost")
         list = sys.argv[2]
-        plt.title(list)
+        plt.title('Greedy')
+        plt.ylabel(list)
         plt.show()
 
         plt.hist(count_plot)
         plt.xlabel("Number parcels")
-        plt.title(list)
+        plt.title('greedy')
+        plt.ylabel(list)
         plt.show()
 
     elif sys.argv[1]=="hill":
@@ -255,13 +256,9 @@ if __name__ == "__main__":
         best_nr_parcel_packed = 0
         k = 0
         cost = 100000000000000000
-<<<<<<< HEAD
-        while k < 100000000:
-=======
         cost_plot = []
         count_plot = []
         while k < 1000000:
->>>>>>> d4a38a4be9cc1055d1c30e3bdf2f8aa770cfc066
             space_freight = spacefreight(sys.argv[2])
             if space_freight.delete_outliners() >= count_cargo:
                 count_cargo = space_freight.delete_outliners()
@@ -276,6 +273,8 @@ if __name__ == "__main__":
                     z+=1
                     space_freight.random_fill()
                     # print(space_freight)
+                    cost_plot.append(space_freight.cost())
+                    count_plot.append(space_freight.count())
                 if space_freight.count() >= best_nr_parcel_packed:
                     # print(best_nr_parcel_packed)
                     # print(space_freight.cost())
@@ -285,12 +284,25 @@ if __name__ == "__main__":
                         print()
                         cost = space_freight.cost()
                         best_nr_parcel_packed = space_freight.count()
-                        cost_plot.append(cost)
-                        count_plot.append(best_nr_parcel_packed)
                     elif space_freight.count() > best_nr_parcel_packed:
                         cost = space_freight.cost()
+                        # print(space_freight)
             k+=1
-<<<<<<< HEAD
+
+        stop = timeit.default_timer()
+        print('Time: ', (stop - start))
+        list = sys.argv[2]
+        plt.hist(cost_plot)
+        plt.xlabel("Cost")
+        plt.title('Hill')
+        plt.ylabel(list)
+        plt.show()
+
+        plt.hist(count_plot)
+        plt.xlabel("number parcels")
+        plt.title('Hill')
+        plt.ylabel(list)
+        plt.show()
 
     elif sys.argv[1]=="hill1":
         best_nr_parcel_packed = 0
@@ -309,6 +321,8 @@ if __name__ == "__main__":
                 z+=1
                 space_freight.random_fill()
                 # print(space_freight)
+                cost_plot.append(cost)
+                count_plot.append(best_nr_parcel_packed)
             if space_freight.count() >= best_nr_parcel_packed:
                 # print(best_nr_parcel_packed)
                 # print(space_freight.cost())
@@ -321,11 +335,9 @@ if __name__ == "__main__":
                 elif space_freight.count() > best_nr_parcel_packed:
                     cost = space_freight.cost()
             k+=1
-=======
-        time = []
+
         stop = timeit.default_timer()
         print('Time: ', (stop - start))
-        time.append(stop-start)
 
         plt.hist(cost_plot)
         plt.xlabel("Cost")
@@ -336,4 +348,3 @@ if __name__ == "__main__":
         plt.xlabel("number parcels")
         plt.title(list)
         plt.show()
->>>>>>> d4a38a4be9cc1055d1c30e3bdf2f8aa770cfc066
