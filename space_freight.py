@@ -339,6 +339,7 @@ if __name__ == "__main__":
                 if space_freight.cost() < cost:
                     print('aantal parcels mee: ', space_freight.count())
                     print('kosten: ', space_freight.cost())
+                    print(space_freight)
                     print()
                     cost = space_freight.cost()
                     best_nr_parcel_packed = space_freight.count()
@@ -349,7 +350,6 @@ if __name__ == "__main__":
         print('Time: ', (stop - start))
 
     title = sys.argv[1]
-    print(spacefreight)
     plt.title(title)
     plt.xlabel('Costs')
     plt.ylabel('Amount of Parcels')
@@ -370,18 +370,3 @@ if __name__ == "__main__":
     plt.title(title)
     plt.ylabel(list)
     plt.show()
-
-
-
-        plt.hist(cost_plot)
-        plt.xlabel("Cost")
-        list = sys.argv[2]
-        plt.title('random')
-        plt.ylabel(list)
-        plt.show()
-
-        plt.hist(count_plot)
-        plt.xlabel("Number parcels")
-        plt.title('random')
-        plt.ylabel(list)
-        plt.show()
