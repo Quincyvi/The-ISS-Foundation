@@ -232,37 +232,6 @@ if __name__ == "__main__":
             i+=1
         stop = timeit.default_timer()
         print('Time: ', (stop - start))
-<<<<<<< HEAD
-        time.append(stop-start)
-        plt.plot(cost_plot, count_plot, 'ro')
-        plt.axis([1460000000, 147000000, 70, 100])
-        plt.show()
-
-        # plt.hist(cost_plot)
-        # plt.xlabel("Cost")
-        # list = sys.argv[2]
-        # plt.title(list)
-        # plt.show()
-        #
-        # plt.hist(count_plot)
-        # plt.xlabel("Number parcels")
-        # plt.title(list)
-        # plt.show()
-=======
-
-        plt.hist(cost_plot)
-        plt.xlabel("Cost")
-        list = sys.argv[2]
-        plt.title('Greedy')
-        plt.ylabel(list)
-        plt.show()
-
-        plt.hist(count_plot)
-        plt.xlabel("Number parcels")
-        plt.title('greedy')
-        plt.ylabel(list)
-        plt.show()
->>>>>>> ef8eafcb84ffc0f0daac87bf6d8473c006bec338
 
     elif sys.argv[1]=="hill":
         start = timeit.default_timer()
@@ -302,24 +271,6 @@ if __name__ == "__main__":
                         cost = space_freight.cost()
                         # print(space_freight)
             k+=1
-<<<<<<< HEAD
-=======
-
-        stop = timeit.default_timer()
-        print('Time: ', (stop - start))
-        list = sys.argv[2]
-        plt.hist(cost_plot)
-        plt.xlabel("Cost")
-        plt.title('Hill')
-        plt.ylabel(list)
-        plt.show()
-
-        plt.hist(count_plot)
-        plt.xlabel("number parcels")
-        plt.title('Hill')
-        plt.ylabel(list)
-        plt.show()
->>>>>>> ef8eafcb84ffc0f0daac87bf6d8473c006bec338
 
     elif sys.argv[1]=="hill_with_outliers":
         best_nr_parcel_packed = 0
@@ -356,34 +307,24 @@ if __name__ == "__main__":
                 elif space_freight.count() > best_nr_parcel_packed:
                     cost = space_freight.cost()
             k+=1
-<<<<<<< HEAD
+    title = sys.argv[1]
     print(spacefreight)
+    plt.title(title)
     plt.xlabel('Costs')
     plt.ylabel('Amount of Parcels')
     plt.plot(cost_plot, count_plot, 'ro')
     plt.axis([1465000000, 1468000000, 70, 100])
     plt.show()
-#         plt.hist(cost_plot)
-#         plt.xlabel("Cost")
-#         plt.title(list)
-#         plt.show()
-#
-#         plt.hist(count_plot)
-#         plt.xlabel("number parcels")
-#         plt.title(list)
-#         plt.show()
-=======
 
-        stop = timeit.default_timer()
-        print('Time: ', (stop - start))
+    list = sys.argv[2]
+    plt.hist(cost_plot)
+    plt.xlabel("Cost")
+    plt.title(title)
+    plt.ylabel(list)
+    plt.show()
 
-        plt.hist(cost_plot)
-        plt.xlabel("Cost")
-        plt.title(list)
-        plt.show()
-
-        plt.hist(count_plot)
-        plt.xlabel("number parcels")
-        plt.title(list)
-        plt.show()
->>>>>>> ef8eafcb84ffc0f0daac87bf6d8473c006bec338
+    plt.hist(count_plot)
+    plt.xlabel("number parcels")
+    plt.title(title)
+    plt.ylabel(list)
+    plt.show()
