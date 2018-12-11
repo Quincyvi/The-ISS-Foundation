@@ -307,28 +307,6 @@ if __name__ == "__main__":
                 elif space_freight.count() > best_nr_parcel_packed:
                     cost = space_freight.cost()
             k+=1
-    title = sys.argv[1]
-    print(spacefreight)
-    plt.title(title)
-    plt.xlabel('Costs')
-    plt.ylabel('Amount of Parcels')
-    plt.plot(cost_plot, count_plot, 'ro')
-    plt.axis([1465000000, 1468000000, 70, 100])
-    plt.show()
-
-    list = sys.argv[2]
-    plt.hist(cost_plot)
-    plt.xlabel("Cost")
-    plt.title(title)
-    plt.ylabel(list)
-    plt.show()
-
-    plt.hist(count_plot)
-    plt.xlabel("number parcels")
-    plt.title(title)
-    plt.ylabel(list)
-    plt.show()
-
     elif sys.argv[1]=="random":
         start = timeit.default_timer()
         count_cargo = 0
@@ -357,6 +335,30 @@ if __name__ == "__main__":
             i+=1
         stop = timeit.default_timer()
         print('Time: ', (stop - start))
+        
+    title = sys.argv[1]
+    print(spacefreight)
+    plt.title(title)
+    plt.xlabel('Costs')
+    plt.ylabel('Amount of Parcels')
+    plt.plot(cost_plot, count_plot, 'ro')
+    plt.axis([1465000000, 1468000000, 70, 100])
+    plt.show()
+
+    list = sys.argv[2]
+    plt.hist(cost_plot)
+    plt.xlabel("Cost")
+    plt.title(title)
+    plt.ylabel(list)
+    plt.show()
+
+    plt.hist(count_plot)
+    plt.xlabel("number parcels")
+    plt.title(title)
+    plt.ylabel(list)
+    plt.show()
+
+
 
         plt.hist(cost_plot)
         plt.xlabel("Cost")
