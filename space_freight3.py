@@ -18,13 +18,18 @@ class spacefreight():
         self.ship_list = []
 
     def __str__(self):
-        s="============= ships:\n"
+        # s="============= ships:\n"
+        # for i in self.ships:
+        #     s+=str(i)
+        #     s+=str(len(i.inventory.inventory))
+        # s+="============= cargo:\n"
+        # for i in self.cargo:
+        #     s+=str(i)
+        # return s
+        s = ""
         for i in self.ships:
-            s+=str(i)
-        s+="============= cargo:\n"
-        for i in self.cargo:
-            s+=str(i)
-        return s
+            s+= str(i.name) + " " + str(len(i.inventory.inventory)) + "\n"
+        return(s)
 
     def load_cargo(self, filename):
         list_cargo = []

@@ -18,14 +18,18 @@ class spacefreight():
         self.ship_list = []
 
     def __str__(self):
-        s="============= ships:\n"
+        # s="============= ships:\n"
+        # for i in self.ships:
+        #     s+=str(i)
+        #     s+=str(len(i.inventory.inventory))
+        # s+="============= cargo:\n"
+        # for i in self.cargo:
+        #     s+=str(i)
+        # return s
+        s = ""
         for i in self.ships:
-            print(i)
-            print(len(i.inventory))
-        s+="============= cargo:\n"
-        for i in self.cargo:
-            s+=str(i)
-        return s
+            s+= str(i.name) + " " + str(len(i.inventory.inventory)) + "\n"
+        return(s)
 
     def load_cargo(self, filename):
         list_cargo = []
@@ -222,15 +226,15 @@ if __name__ == "__main__":
                             if space_freight.cost() < cost:
                                 print('aantal parcels mee: ', space_freight.count())
                                 print('kosten: ', space_freight.cost())
+                                print(space_freight)
                                 print()
                                 cost = space_freight.cost()
                                 best_nr_parcel_packed = space_freight.count()
                             elif space_freight.count() > best_nr_parcel_packed:
                                 cost = space_freight.cost()
-                                cost_plot.append(cost)
-                                count_plot.append(best_nr_parcel_packed)
+                                print(space_freight)
             i+=1
-        stop = timeit.default_timer()
+
         print('Time: ', (stop - start))
 
     elif sys.argv[1]=="hill":
@@ -264,11 +268,16 @@ if __name__ == "__main__":
                     if space_freight.cost() < cost:
                         print('aantal parcels mee: ', space_freight.count())
                         print('kosten: ', space_freight.cost())
+                        print(space_freight)
                         print()
                         cost = space_freight.cost()
                         best_nr_parcel_packed = space_freight.count()
+                        cost_plot.append(cost)
+                        count_plot.append(best_nr_parcel_packed)
                     elif space_freight.count() > best_nr_parcel_packed:
                         cost = space_freight.cost()
+                        cost_plot.append(cost)
+                        count_plot.append(best_nr_parcel_packed)
                         # print(space_freight)
             k+=1
 
@@ -299,6 +308,7 @@ if __name__ == "__main__":
                 if space_freight.cost() < cost:
                     print('aantal parcels mee: ', space_freight.count())
                     print('kosten: ', space_freight.cost())
+                    print(space_freight)
                     print()
                     cost = space_freight.cost()
                     best_nr_parcel_packed = space_freight.count()
@@ -306,14 +316,18 @@ if __name__ == "__main__":
                     count_plot.append(best_nr_parcel_packed)
                 elif space_freight.count() > best_nr_parcel_packed:
                     cost = space_freight.cost()
+                    cost_plot.append(cost)
+                    count_plot.append(best_nr_parcel_packed)
             k+=1
+
     title = sys.argv[1]
     print(spacefreight)
     plt.title(title)
     plt.xlabel('Costs')
     plt.ylabel('Amount of Parcels')
     plt.plot(cost_plot, count_plot, 'ro')
-    plt.axis([1465000000, 1468000000, 70, 100])
+    plt.axis([(min(cost_plot)-1000000), (max(cost_plot)+1000000),\
+     (min(count_plot)-5), (max(count_plot)+5)])
     plt.show()
 
     list = sys.argv[2]
