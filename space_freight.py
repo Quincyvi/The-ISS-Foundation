@@ -210,7 +210,7 @@ if __name__ == "__main__":
         best_nr_parcel_packed = 0
         cost_plot = []
         count_plot = []
-        while i < 100000:
+        while i < 1:
             space_freight = spacefreight(sys.argv[2])
             if space_freight.delete_outliners() >= count_cargo:
                 count_cargo = space_freight.delete_outliners()
@@ -360,7 +360,8 @@ if __name__ == "__main__":
         print('Time: ', (stop - start))
 
     title = sys.argv[1]
-    plt.title(title)
+    list = sys.argv[2]
+    plt.title(title + " " + list)
     plt.xlabel('Costs')
     plt.ylabel('Amount of Parcels')
     plt.plot(cost_plot, count_plot, 'ro')
@@ -371,12 +372,12 @@ if __name__ == "__main__":
     list = sys.argv[2]
     plt.hist(cost_plot)
     plt.xlabel("Cost")
-    plt.title(title)
+    plt.title(title + " " + list)
     plt.ylabel(list)
     plt.show()
 
     plt.hist(count_plot)
     plt.xlabel("number parcels")
-    plt.title(title)
+    plt.title(title + " " + list)
     plt.ylabel(list)
     plt.show()
