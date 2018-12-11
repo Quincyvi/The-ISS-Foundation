@@ -234,7 +234,7 @@ if __name__ == "__main__":
                                 cost = space_freight.cost()
                                 print(space_freight)
             i+=1
-
+        stop = timeit.default_timer()
         print('Time: ', (stop - start))
 
     elif sys.argv[1]=="hill":
@@ -280,8 +280,11 @@ if __name__ == "__main__":
                         count_plot.append(best_nr_parcel_packed)
                         # print(space_freight)
             k+=1
+        stop = timeit.default_timer()
+        print('Time: ', (stop - start))
 
     elif sys.argv[1]=="hill_with_outliers":
+        start = timeit.default_timer()
         best_nr_parcel_packed = 0
         k = 0
         cost = 100000000000000000
@@ -319,6 +322,9 @@ if __name__ == "__main__":
                     cost_plot.append(cost)
                     count_plot.append(best_nr_parcel_packed)
             k+=1
+        stop = timeit.default_timer()
+        print('Time: ', (stop - start))
+
     elif sys.argv[1]=="random":
         start = timeit.default_timer()
         count_cargo = 0
