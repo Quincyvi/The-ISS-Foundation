@@ -210,7 +210,7 @@ if __name__ == "__main__":
         best_nr_parcel_packed = 0
         cost_plot = []
         count_plot = []
-        while i < 1:
+        while i < 100:
             space_freight = spacefreight(sys.argv[2])
             if space_freight.delete_outliners() >= count_cargo:
                 count_cargo = space_freight.delete_outliners()
