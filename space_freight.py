@@ -321,8 +321,8 @@ if __name__ == "__main__":
                 z+=1
                 space_freight.random_fill()
                 # print(space_freight)
-                cost_plot.append(cost)
-                count_plot.append(best_nr_parcel_packed)
+                cost_plot.append(space_freight.cost())
+                count_plot.append(space_freight.count())
             if space_freight.count() >= best_nr_parcel_packed:
                 # print(best_nr_parcel_packed)
                 # print(space_freight.cost())
@@ -347,4 +347,46 @@ if __name__ == "__main__":
         plt.hist(count_plot)
         plt.xlabel("number parcels")
         plt.title(list)
+        plt.show()
+
+    elif sys.argv[1]=="random":
+        start = timeit.default_timer()
+        count_cargo = 0
+        i = 0
+        cost = 100000000000000000
+        best_nr_parcel_packed = 0
+        cost_plot = []
+        count_plot = []
+        while i < 100000:
+            space_freight = spacefreight(sys.argv[2])
+            space_freight.random_fill()
+            # print(space_freight)
+            cost_plot.append(space_freight.cost())
+            count_plot.append(space_freight.count())
+            if space_freight.count() >= best_nr_parcel_packed:
+                # print(best_nr_parcel_packed)
+                # print(space_freight.cost())
+                if space_freight.cost() < cost:
+                    print('aantal parcels mee: ', space_freight.count())
+                    print('kosten: ', space_freight.cost())
+                    print()
+                    cost = space_freight.cost()
+                    best_nr_parcel_packed = space_freight.count()
+                elif space_freight.count() > best_nr_parcel_packed:
+                    cost = space_freight.cost()
+            i+=1
+        stop = timeit.default_timer()
+        print('Time: ', (stop - start))
+
+        plt.hist(cost_plot)
+        plt.xlabel("Cost")
+        list = sys.argv[2]
+        plt.title('random')
+        plt.ylabel(list)
+        plt.show()
+
+        plt.hist(count_plot)
+        plt.xlabel("Number parcels")
+        plt.title('random')
+        plt.ylabel(list)
         plt.show()
