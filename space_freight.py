@@ -292,7 +292,7 @@ if __name__ == "__main__":
         cost = 100000000000000000
         cost_plot = []
         count_plot = []
-        while k < 40000:
+        while k < 100000:
             space_freight = spacefreight(sys.argv[2])
             z = 0
             while z < 100:
@@ -326,7 +326,7 @@ if __name__ == "__main__":
                     count_plot.append(best_nr_parcel_packed)
                     ship_information = space_freight.ships
             k+=1
-            z = (k/40000)*100
+            z = (k/100000)*100
             print(z)
         stop = timeit.default_timer()
         print('Time: ', (stop - start))
@@ -338,6 +338,15 @@ if __name__ == "__main__":
         plt.title(title)
         plt.xlabel('Name')
         plt.ylabel('Amount of parcels')
+        plt.show()
+        for i in ship_information:
+            print(i.name)
+            print(i.total_costs())
+            plt.bar(i.name, i.total_costs())
+        title = sys.argv[2]
+        plt.title(title)
+        plt.xlabel('Name')
+        plt.ylabel('Costs (*100.000.000 $)')
         plt.show()
 
     elif sys.argv[1]=="random":
