@@ -392,7 +392,7 @@ if __name__ == "__main__":
         print('Time: ', (stop - start))
         print('Argument List:', str(sys.argv))
 
-    elif sys.argv[1]=="all_algoritmes":
+    if sys.argv[1]=="all_algoritmes":
         start = timeit.default_timer()
         count_cargo = 0
         i = 0
