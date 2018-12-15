@@ -318,9 +318,8 @@ if __name__ == "__main__":
         best_nr_parcel_packed = 0
         cost_plot = []
         count_plot = []
-        print("let's Go")
         space_freight = spacefreight(sys.argv[2],sys.argv[3])
-        # space_freight.space_list_number()
+        space_freight.space_list_number()
         for ship_index in range(0,len(space_freight.ships)):
             for item_index in range(0,len(space_freight.cargo)):
                 space_freight = spacefreight(sys.argv[2],sys.argv[3])
@@ -338,8 +337,33 @@ if __name__ == "__main__":
                     elif space_freight.count() > best_nr_parcel_packed:
                         cost = space_freight.cost()
                         # print(space_freight)
-        space_freight.space_list_cost()
-        space_freight = spacefreight(sys.argv[2],'spacecraft_use')
+        # i = 1
+        # print('now replicate ship with lowest cost')
+        # space_freight.space_list_cost()
+        # while i < 100:
+        #     space_freight = spacefreight(sys.argv[2],'spacecraft_use')
+        #     if space_freight.delete_outliners() >= count_cargo:
+        #         count_cargo = space_freight.delete_outliners()
+        #         for ship_index in range(0,len(space_freight.ships)):
+        #             for item_index in range(0,len(space_freight.cargo)):
+        #                 # space_freight = spacefreight(sys.argv[2],'spacecraft_use')
+        #                 space_freight.calculate_greedy(ship_index, item_index)
+        #                 cost_plot.append(space_freight.cost())
+        #                 count_plot.append(space_freight.count())
+        #                 if space_freight.count() >= best_nr_parcel_packed:
+        #                     # print(best_nr_parcel_packed)
+        #                     # print(space_freight.cost())
+        #                     if space_freight.cost() < cost:
+        #                         print('aantal parcels mee: ', space_freight.count())
+        #                         print('kosten: ', space_freight.cost())
+        #                         print(space_freight)
+        #                         print()
+        #                         cost = space_freight.cost()
+        #                         best_nr_parcel_packed = space_freight.count()
+        #                     elif space_freight.count() > best_nr_parcel_packed:
+        #                         cost = space_freight.cost()
+        #                         print(space_freight)
+        #     i+=1
         stop = timeit.default_timer()
         print('Time: ', (stop - start))
 
@@ -433,8 +457,10 @@ if __name__ == "__main__":
         best_nr_parcel_packed = 0
         cost_plot = []
         count_plot = []
+        space_freight = spacefreight(sys.argv[2],sys.argv[3])
+        space_freight.space_list_number()
         while i < 100:
-            space_freight = spacefreight(sys.argv[2],sys.argv[3])
+            space_freight = spacefreight(sys.argv[2],'spacecraft_use')
             space_freight.random_fill()
             # print(space_freight)
             cost_plot_r.append(space_freight.cost())
@@ -457,7 +483,7 @@ if __name__ == "__main__":
                     cost = space_freight.cost()
                     # cost_plot.append(space_freight.cost())
                     # count_plot.append(space_freight.count())
-                space_freight.space_list_cost()
+                # space_freight.space_list_cost()
                 space_freight = spacefreight(sys.argv[2],'spacecraft_use')
             i+=1
         stop = timeit.default_timer()
