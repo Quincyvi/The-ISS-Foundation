@@ -209,6 +209,17 @@ class spacefreight():
         return len(self.cargo)
 
 if __name__ == "__main__":
+    if sys.argv[1]=="spaceship" or sys.argv[1]=='all':
+        space_freight = spacefreight(sys.argv[2])
+        for i in space_freight.ships:
+            plt.bar(i.payload_volume, i.payload_mass)
+        title = sys.argv[2]
+        plt.title(title)
+        plt.xlabel('volume')
+        plt.ylabel('massa')
+        plt.show()
+
+
     print('Argument List:', str(sys.argv))
     cost_plot_g = []
     count_plot_g = []
