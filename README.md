@@ -3,11 +3,15 @@ install the libraries shown in the requirements.txt file
 
 # Running the program:
 + For Cargo list1 and list2 run:
-    - python3 space_freight.py ('Algorithm') ('List')
-    - eg. python3 space_freight.py hill_with_outliers List2
+    - python3 space_freight.py ('Algorithm') ('List')('Spacecraft_update')
+    - eg. python3 space_freight.py hill_with_outliers List2 spacecraft_update
 + for Cargo list3 run space_freight3.py
 
 # Visualizations of the results (graphs) are shown in the Visualization folder
+
+# Presentation
+   view:
+   +http://prezi.com/iqk9zoafex3u/?utm_campaign=share&utm_medium=copy
 
 # The-ISS-Foundation
 Project
