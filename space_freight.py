@@ -74,6 +74,7 @@ class spacefreight():
                     list_ships.append(ship_data)
         return list_ships
 
+    #greedy algoritme
     def calculate_greedy(self, ship, item):
         count_cargo = 0
         count_ships = 0
@@ -101,6 +102,7 @@ class spacefreight():
             ship+=1
             count_ships+=1
 
+    #Random algoritme
     def random_fill(self): # maak random indeling
         # print("random_fill")
         cargo_to_fill=round(len(self.cargo)) # fill half, just a test
@@ -116,6 +118,7 @@ class spacefreight():
                     # print("  parcel:",cargo_index," in:", ship_index)
                     self.ship_list.append(current_cargo)
 
+    # swap functie om te kijken of parcels tussen schepen geruild kunnen worden
     def swap(self):
         ship1_count = random.randint(0, (len(self.ships)-1))
         ship2_count = random.randint(0, (len(self.ships)-1))
@@ -147,6 +150,7 @@ class spacefreight():
     def count(self):
         return len(self.ship_list)
 
+    # functie for de informatie over de schepen
     def info(self):
         locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
         for i in self.ships:
@@ -165,12 +169,14 @@ class spacefreight():
         print('The costs per parcel are:',\
               locale.currency(sum(total_costs)/len(self.ship_list), grouping = True))
         type = 0
+        # laat zien welke parcels er over blijven
         while type <= len(self.ship_list):
             current_cargo = self.cargo[type]
             if not current_cargo in self.ship_list:
                 print(current_cargo.parcel_id)
             type+=1
 
+    #kosten functie
     def cost(self):
         total_costs = []
         for spacecraft in self.ships:
@@ -180,6 +186,7 @@ class spacefreight():
                  # locale.currency(spacecraft.total_costs(), grouping = True))
         return sum(total_costs)
 
+    #verwijderd parcel uitschieters die niet in de schepen passen
     def delete_outliners(self):
         total_ship_mass = []
         total_ship_volume = []
