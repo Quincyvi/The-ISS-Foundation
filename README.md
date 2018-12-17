@@ -10,8 +10,7 @@ install the libraries shown in the requirements.txt file
 # Visualizations of the results (graphs) are shown in the Visualization folder
 
 # Presentation
-   view:
-   + http://prezi.com/iqk9zoafex3u/?utm_campaign=share&utm_medium=copy
+http://prezi.com/iqk9zoafex3u/?utm_campaign=share&utm_medium=copy
 
 # The-ISS-Foundation
 Project
