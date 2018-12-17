@@ -1,3 +1,4 @@
+#Class die een inventory maakt voor de schepen 
 from cargo import Cargo
 class Inventory(object):
     def __init__(self):

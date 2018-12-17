@@ -35,6 +35,7 @@ class spacefreight():
             s+="\n"
         return(s)
 
+    #functie voor het lezen van de cargo
     def load_cargo(self, filename):
         list_cargo = []
         with open(filename) as csv_data:
@@ -42,18 +43,14 @@ class spacefreight():
                 next(reader)
                 val_sorted = sorted(reader, key = lambda\
                     x:float(x[2])/float(x[1]), reverse=False)
-                    #x:float(x[2]), reverse=False)
                 for line in val_sorted:
                     parcel_id = line[0]
                     mass = float(line[1])
                     volume = float(line[2])
-                    # mass_per_vol = mass / volume
                     cargo_data = Cargo(parcel_id, mass, volume)
                     list_cargo.append(cargo_data)
-                    # print(cargo_data)
-                    # print(mass, volume)
         return list_cargo
-
+    #functie voor het lezen van de schepen
     def load_ships(self, filename):
         list_ships = []
         with open(filename) as csv_data:
@@ -293,6 +290,8 @@ if __name__ == "__main__":
         print('Time: ', (stop - start))
 
     if sys.argv[1]=="hill_with_outliers" or sys.argv[1]=='all':
+        cost_plot = []
+        count_plot = []
         start = timeit.default_timer()
         best_nr_parcel_packed = 0
         k = 0
@@ -338,8 +337,6 @@ if __name__ == "__main__":
         stop = timeit.default_timer()
         print('Time: ', (stop - start))
         for i in ship_information:
-            print(i.name)
-            print(len(i.inventory.inventory))
             plt.bar(i.name, len(i.inventory.inventory))
         title = sys.argv[2]
         plt.title(title)

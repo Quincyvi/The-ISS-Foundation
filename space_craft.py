@@ -1,6 +1,7 @@
 from inventory import Inventory
 import locale
 import numpy as np
+#class die alle info per schip geeft plus kosten en pak functies
 class Spacecraft(object):
     def __init__(self, name, nation, payload_mass, payload_volume, mass,
                 base_costs, fuel_to_weight):
@@ -26,7 +27,7 @@ class Spacecraft(object):
         self.payload_mass = self.payload_mass - item.mass
         self.mass_taken.append(item.mass)
         self.payload_volume = self.payload_volume - item.volume
-        
+
     def remove(self, item):
         self.inventory.remove(item)
         self.payload_mass = self.payload_mass + item.mass
