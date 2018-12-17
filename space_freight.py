@@ -33,13 +33,13 @@ class spacefreight():
         with open(filename) as csv_data:
                 reader = csv.reader(csv_data, delimiter=',')
                 next(reader)
+                # sort list
                 val_sorted = sorted(reader, key = lambda\
                     x:float(x[2])/float(x[1]), reverse=False)
                 for line in val_sorted:
                     parcel_id = line[0]
                     mass = float(line[1])
                     volume = float(line[2])
-
                     cargo_data = Cargo(parcel_id, mass, volume)
                     list_cargo.append(cargo_data)
         return list_cargo
@@ -49,6 +49,7 @@ class spacefreight():
         # read ship file, include information of ships
         with open(filename) as csv_data:
                 reader = csv.reader(csv_data, delimiter=',')
+                # sort list
                 val_sorted = sorted(reader, key = lambda\
                                     x:float(x[3])/float(x[2]), reverse=False)
                 for line in val_sorted:
@@ -206,7 +207,6 @@ if __name__ == "__main__":
     if sys.argv[1]=="greedy" or sys.argv[1]=='all':
         start = timeit.default_timer()
         count_cargo = 0
-        i = 0
         cost = 100000000000000000
         best_nr_parcel_packed = 0
         space_freight = spacefreight(sys.argv[2])
@@ -281,7 +281,6 @@ if __name__ == "__main__":
                      i+=1
                 z+=1
                 space_freight.random_fill()
-
             if space_freight.count() >= best_nr_parcel_packed:
                 if space_freight.cost() < cost:
                     print('aantal parcels mee: ', space_freight.count())
@@ -341,12 +340,10 @@ if __name__ == "__main__":
                     best_nr_parcel_packed = space_freight.count()
                 elif space_freight.count() > best_nr_parcel_packed:
                     cost = space_freight.cost()
-
             i+=1
 
         stop = timeit.default_timer()
         print('Time: ', (stop - start))
-        print('Argument List:', str(sys.argv))
 
     if sys.argv[1]=="all_algoritmes":
         start = timeit.default_timer()
