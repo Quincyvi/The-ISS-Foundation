@@ -7,7 +7,8 @@ install the libraries shown in the requirements.txt file
     - eg. python3 space_freight.py hill_with_outliers List2 spacecraft_update
 + for Cargo list3 run space_freight3.py
 
-# Visualizations of the results (graphs) are shown in the Visualization folder
+# Visualizations 
+visualisation of the results (graphs) are shown in the Visualization folder
 
 # Presentation
 http://prezi.com/iqk9zoafex3u/?utm_campaign=share&utm_medium=copy
