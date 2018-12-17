@@ -34,11 +34,12 @@ spacecraft with least space (Cygnus)
 + Greedy
 + Random
 + Hill Climbing
+
 ### Max number of parcels that can be shipped with the 4 spacecrafts
 #### Calculated with sum of total payload mass and sum of total payload volume minus total mass parcels and total volume parcels:
 + Cargo List1: 97 parcels
 + Cargo List2: 92 parcels
-##### The max amount of parcels our algorithms calculated:
+##### The max amount of parcels our algorithms calculated with the current data:
 + Cargo List1: 96 parcels (greedy)
 + Cargo List2: 88 parcels (hill climbing)
 
