@@ -20,8 +20,6 @@ State Space for:
       4^100
   + max cargoList3:
       90^1000
-
-
 spacecraft with least space (Cygnus)
 + Upper Bound:
   + CargoList1:
@@ -30,6 +28,7 @@ spacecraft with least space (Cygnus)
       5^100
   + CargoList3:
       6^1000
+
 ## Algorithms used:
 + Greedy
 + Random
